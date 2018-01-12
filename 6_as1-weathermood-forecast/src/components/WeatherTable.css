@@ -1,0 +1,54 @@
+.d-flex{
+    margin: 0 10rem 1rem 10rem;
+}
+
+@media screen and (max-width:575px){
+    .visible {
+        width:50%;
+        margin: 0 auto;
+        padding: 0;
+    }
+    .hide {
+        display: none;
+    }
+    .d-flex{
+        margin: 0 0 1rem 0;
+    }
+}
+
+.table-display {
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.3), 0 0 1rem rgba(0, 0, 0, 0.7);
+    width: 25%;
+    max-width: 24rem;
+    margin: 0 1rem; 
+    transition: all 0.3s;
+    opacity: 1;
+}
+
+.table-display.masking {
+    opacity: 0;
+}
+
+.table-display .description {
+    margin: 0 auto;
+    height: 1rem;
+    text-transform: capitalize;
+    opacity: 0.7;
+}
+
+.table-display .temp {
+
+    margin: 0 auto;
+    font-size: 1rem;
+}
+
+.num{
+    font-size: 1.5rem;
+}
+
+.week {
+    font-size: 2rem;
+}
+
