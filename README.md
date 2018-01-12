@@ -8,7 +8,7 @@ lecture 2:https://www.youtube.com/playlist?list=PLlPcwHqLqJDkGpN5725ZP7jR2vTHayk
 Bonus: How to Make Your Project Real?
 https://www.youtube.com/watch?v=lt68yuHV4lc&list=PLlPcwHqLqJDlD86V7FNTP8d7JBvQmITrP&index=11
 
-				      https://www.youtube.com/watch?v=JGTk_7kaIQQ&list=PLlPcwHqLqJDlwNSyaBRQ3yao5UyhhxQuf&index=1
+https://www.youtube.com/watch?v=JGTk_7kaIQQ&list=PLlPcwHqLqJDlwNSyaBRQ3yao5UyhhxQuf&index=1
 
 lecture 3:https://www.youtube.com/playlist?list=PLlPcwHqLqJDlwNSyaBRQ3yao5UyhhxQuf
 
