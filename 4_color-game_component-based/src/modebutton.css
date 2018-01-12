@@ -1,0 +1,12 @@
+﻿.navbar .mode {
+    font-weight: bold;
+    padding: 0 1rem;
+    cursor:pointer;
+    color:black;
+    border: 2px hidden;
+    border-radius: 25px;
+    transition:0.5s;
+}
+.navbar .mode:hover {
+    color: red !important;
+}

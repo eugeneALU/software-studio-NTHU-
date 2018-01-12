@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+        <title>Color Game</title>
+    </head>
+
+    <body>
+       <div class="window"></div>
+        <div class="banner">
+            <div class="container">
+                <div class="flex">
+                    <span style="margin-right:5rem;font-size:2rem;">X:<span class="rolex"></span></span>
+                    <span style="margin-left:auto;font-size:2rem;">O:<span class="roleo"></span></span>
+                </div>
+                <span class="turn"></span>
+              
+            </div>
+        </div>
+        <div style="background-color:#0954be;">
+            <hr />
+            <div class="grid container">
+                <table>
+                    <tr>
+                        <td class="cell" style="border-right: 2px solid black; border-bottom: 2px solid black;"></td>
+                        <td class="cell" style=" border-bottom: 2px solid black;"></td>
+                        <td class="cell" style="border-left: 2px solid black; border-bottom: 2px solid black;"></td>
+                    </tr>
+                    <tr>
+                        <td class="cell" style="border-right: 2px solid black;"></td>
+                        <td class="cell" ></td>
+                        <td class="cell" style="border-left: 2px solid black;"></td>
+                    </tr>
+                    <tr>
+                        <td class="cell" style="border-right: 2px solid black; border-top: 2px solid black;"></td>
+                        <td class="cell" style=" border-top: 2px solid black;"></td>
+                        <td class="cell" style="border-left: 2px solid black; border-top: 2px solid black;"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="footer" style="background-color:blue;">
+            <br />
+            <button class="reset"><i class="fa fa-retweet" aria-hidden="true"></i>&nbsp;&nbsp;<span>RESTART GAME</span></button>
+            <br />
+        </div>
+
+        <script type="text/javascript" src="main.bundle.js"></script>
+    </body>
+
+</html>

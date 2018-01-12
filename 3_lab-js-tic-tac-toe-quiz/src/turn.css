@@ -1,0 +1,7 @@
+.turn{
+  margin: auto;
+  font-size:2rem;
+     border-left: 6px solid blue;
+    background-color: lightgrey;
+  box-shadow: 5px 5px 5px grey;
+}

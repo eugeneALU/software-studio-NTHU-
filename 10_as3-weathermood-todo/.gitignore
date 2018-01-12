@@ -1,0 +1,9 @@
+as3-server/node_modules/*
+as3-server/npm-debug.log
+as3-server/data-*.json
+as3-server/logs.txt
+as3-server/env.sh
+as3-sever/*.dump
+as3-client/node_modules/*
+as3-client/dist/index.bundle.js*
+as3-client/dist/vendor.bundle/js*

@@ -1,0 +1,461 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.6.3
+-- Dumped by pg_dump version 9.6.3
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET search_path = public, pg_catalog;
+
+DROP INDEX public.todos_idx_text;
+DROP INDEX public.posts_idx_ts;
+DROP INDEX public.posts_idx_text;
+ALTER TABLE ONLY public.todos DROP CONSTRAINT todos_pkey;
+ALTER TABLE ONLY public.posts DROP CONSTRAINT posts_pkey;
+ALTER TABLE public.todos ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.posts ALTER COLUMN id DROP DEFAULT;
+DROP SEQUENCE public.todos_id_seq;
+DROP TABLE public.todos;
+DROP SEQUENCE public.posts_id_seq;
+DROP TABLE public.posts;
+DROP TYPE public.mood;
+DROP EXTENSION pg_trgm;
+DROP EXTENSION plpgsql;
+DROP SCHEMA public;
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA public;
+
+
+--
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
+
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+--
+-- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_trgm; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- Name: mood; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE mood AS ENUM (
+    'Clear',
+    'Clouds',
+    'Drizzle',
+    'Rain',
+    'Thunder',
+    'Snow',
+    'Windy'
+);
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: posts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE posts (
+    id integer NOT NULL,
+    mood mood NOT NULL,
+    text text NOT NULL,
+    ts bigint DEFAULT date_part('epoch'::text, now()) NOT NULL,
+    "clearVotes" integer DEFAULT 0 NOT NULL,
+    "cloudsVotes" integer DEFAULT 0 NOT NULL,
+    "drizzleVotes" integer DEFAULT 0 NOT NULL,
+    "rainVotes" integer DEFAULT 0 NOT NULL,
+    "thunderVotes" integer DEFAULT 0 NOT NULL,
+    "snowVotes" integer DEFAULT 0 NOT NULL,
+    "windyVotes" integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE posts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE posts_id_seq OWNED BY posts.id;
+
+
+--
+-- Name: todos; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE todos (
+    id integer NOT NULL,
+    mood mood NOT NULL,
+    text text NOT NULL,
+    ts bigint DEFAULT date_part('epoch'::text, now()) NOT NULL,
+    donets bigint
+);
+
+
+--
+-- Name: todos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE todos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: todos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE todos_id_seq OWNED BY todos.id;
+
+
+--
+-- Name: posts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY posts ALTER COLUMN id SET DEFAULT nextval('posts_id_seq'::regclass);
+
+
+--
+-- Name: todos id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY todos ALTER COLUMN id SET DEFAULT nextval('todos_id_seq'::regclass);
+
+
+--
+-- Data for Name: posts; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY posts (id, mood, text, ts, "clearVotes", "cloudsVotes", "drizzleVotes", "rainVotes", "thunderVotes", "snowVotes", "windyVotes") FROM stdin;
+1	Clear	word1 word2 word3	1494932977	0	0	0	0	0	0	0
+2	Clear	word2 word3 word4	1494936577	0	0	0	0	0	0	0
+3	Clear	word3 word4 word5	1494940177	0	0	0	0	0	0	0
+4	Clear	word4 word5 word6	1494943777	0	0	0	0	0	0	0
+5	Clear	word5 word6 word7	1494947377	0	0	0	0	0	0	0
+6	Clear	word6 word7 word8	1494950977	0	0	0	0	0	0	0
+7	Clear	word7 word8 word9	1494954577	0	0	0	0	0	0	0
+8	Clear	word8 word9 word10	1494958177	0	0	0	0	0	0	0
+9	Clear	word9 word10 word11	1494961777	0	0	0	0	0	0	0
+10	Clear	word10 word11 word12	1494965377	0	0	0	0	0	0	0
+11	Clear	word11 word12 word13	1494968977	0	0	0	0	0	0	0
+12	Clear	word12 word13 word14	1494972577	0	0	0	0	0	0	0
+13	Clear	word13 word14 word15	1494976177	0	0	0	0	0	0	0
+14	Clear	word14 word15 word16	1494979777	0	0	0	0	0	0	0
+15	Clear	word15 word16 word17	1494983377	0	0	0	0	0	0	0
+16	Clear	word16 word17 word18	1494986977	0	0	0	0	0	0	0
+17	Clear	word17 word18 word19	1494990577	0	0	0	0	0	0	0
+18	Clear	word18 word19 word20	1494994177	0	0	0	0	0	0	0
+19	Clear	word19 word20 word21	1494997777	0	0	0	0	0	0	0
+20	Clear	word20 word21 word22	1495001377	0	0	0	0	0	0	0
+21	Clear	word21 word22 word23	1495004977	0	0	0	0	0	0	0
+22	Clear	word22 word23 word24	1495008577	0	0	0	0	0	0	0
+23	Clear	word23 word24 word25	1495012177	0	0	0	0	0	0	0
+24	Clear	word24 word25 word26	1495015777	0	0	0	0	0	0	0
+25	Clear	word25 word26 word27	1495019377	0	0	0	0	0	0	0
+26	Clear	word26 word27 word28	1495022977	0	0	0	0	0	0	0
+27	Clear	word27 word28 word29	1495026577	0	0	0	0	0	0	0
+28	Clear	word28 word29 word30	1495030177	0	0	0	0	0	0	0
+29	Clear	word29 word30 word31	1495033777	0	0	0	0	0	0	0
+30	Clear	word30 word31 word32	1495037377	0	0	0	0	0	0	0
+31	Clear	word31 word32 word33	1495040977	0	0	0	0	0	0	0
+32	Clear	word32 word33 word34	1495044577	0	0	0	0	0	0	0
+33	Clear	word33 word34 word35	1495048177	0	0	0	0	0	0	0
+34	Clear	word34 word35 word36	1495051777	0	0	0	0	0	0	0
+35	Clear	word35 word36 word37	1495055377	0	0	0	0	0	0	0
+36	Clear	word36 word37 word38	1495058977	0	0	0	0	0	0	0
+37	Clear	word37 word38 word39	1495062577	0	0	0	0	0	0	0
+38	Clear	word38 word39 word40	1495066177	0	0	0	0	0	0	0
+39	Clear	word39 word40 word41	1495069777	0	0	0	0	0	0	0
+40	Clear	word40 word41 word42	1495073377	0	0	0	0	0	0	0
+41	Clear	word41 word42 word43	1495076977	0	0	0	0	0	0	0
+42	Clear	word42 word43 word44	1495080577	0	0	0	0	0	0	0
+43	Clear	word43 word44 word45	1495084177	0	0	0	0	0	0	0
+44	Clear	word44 word45 word46	1495087777	0	0	0	0	0	0	0
+45	Clear	word45 word46 word47	1495091377	0	0	0	0	0	0	0
+46	Clear	word46 word47 word48	1495094977	0	0	0	0	0	0	0
+47	Clear	word47 word48 word49	1495098577	0	0	0	0	0	0	0
+48	Clear	word48 word49 word50	1495102177	0	0	0	0	0	0	0
+49	Clear	word49 word50 word51	1495105777	0	0	0	0	0	0	0
+50	Clear	word50 word51 word52	1495109377	0	0	0	0	0	0	0
+51	Clear	word51 word52 word53	1495112977	0	0	0	0	0	0	0
+52	Clear	word52 word53 word54	1495116577	0	0	0	0	0	0	0
+53	Clear	word53 word54 word55	1495120177	0	0	0	0	0	0	0
+54	Clear	word54 word55 word56	1495123777	0	0	0	0	0	0	0
+55	Clear	word55 word56 word57	1495127377	0	0	0	0	0	0	0
+56	Clear	word56 word57 word58	1495130977	0	0	0	0	0	0	0
+57	Clear	word57 word58 word59	1495134577	0	0	0	0	0	0	0
+58	Clear	word58 word59 word60	1495138177	0	0	0	0	0	0	0
+59	Clear	word59 word60 word61	1495141777	0	0	0	0	0	0	0
+60	Clear	word60 word61 word62	1495145377	0	0	0	0	0	0	0
+61	Clear	word61 word62 word63	1495148977	0	0	0	0	0	0	0
+62	Clear	word62 word63 word64	1495152577	0	0	0	0	0	0	0
+63	Clear	word63 word64 word65	1495156177	0	0	0	0	0	0	0
+64	Clear	word64 word65 word66	1495159777	0	0	0	0	0	0	0
+65	Clear	word65 word66 word67	1495163377	0	0	0	0	0	0	0
+66	Clear	word66 word67 word68	1495166977	0	0	0	0	0	0	0
+67	Clear	word67 word68 word69	1495170577	0	0	0	0	0	0	0
+68	Clear	word68 word69 word70	1495174177	0	0	0	0	0	0	0
+69	Clear	word69 word70 word71	1495177777	0	0	0	0	0	0	0
+70	Clear	word70 word71 word72	1495181377	0	0	0	0	0	0	0
+71	Clear	word71 word72 word73	1495184977	0	0	0	0	0	0	0
+72	Clear	word72 word73 word74	1495188577	0	0	0	0	0	0	0
+73	Clear	word73 word74 word75	1495192177	0	0	0	0	0	0	0
+74	Clear	word74 word75 word76	1495195777	0	0	0	0	0	0	0
+75	Clear	word75 word76 word77	1495199377	0	0	0	0	0	0	0
+76	Clear	word76 word77 word78	1495202977	0	0	0	0	0	0	0
+77	Clear	word77 word78 word79	1495206577	0	0	0	0	0	0	0
+78	Clear	word78 word79 word80	1495210177	0	0	0	0	0	0	0
+79	Clear	word79 word80 word81	1495213777	0	0	0	0	0	0	0
+80	Clear	word80 word81 word82	1495217377	0	0	0	0	0	0	0
+81	Clear	word81 word82 word83	1495220977	0	0	0	0	0	0	0
+82	Clear	word82 word83 word84	1495224577	0	0	0	0	0	0	0
+83	Clear	word83 word84 word85	1495228177	0	0	0	0	0	0	0
+84	Clear	word84 word85 word86	1495231777	0	0	0	0	0	0	0
+85	Clear	word85 word86 word87	1495235377	0	0	0	0	0	0	0
+86	Clear	word86 word87 word88	1495238977	0	0	0	0	0	0	0
+87	Clear	word87 word88 word89	1495242577	0	0	0	0	0	0	0
+88	Clear	word88 word89 word90	1495246177	0	0	0	0	0	0	0
+89	Clear	word89 word90 word91	1495249777	0	0	0	0	0	0	0
+90	Clear	word90 word91 word92	1495253377	0	0	0	0	0	0	0
+91	Clear	word91 word92 word93	1495256977	0	0	0	0	0	0	0
+92	Clear	word92 word93 word94	1495260577	0	0	0	0	0	0	0
+93	Clear	word93 word94 word95	1495264177	0	0	0	0	0	0	0
+94	Clear	word94 word95 word96	1495267777	0	0	0	0	0	0	0
+95	Clear	word95 word96 word97	1495271377	0	0	0	0	0	0	0
+96	Clear	word96 word97 word98	1495274977	0	0	0	0	0	0	0
+97	Clear	word97 word98 word99	1495278577	0	0	0	0	0	0	0
+98	Clear	word98 word99 word100	1495282177	0	0	0	0	0	0	0
+99	Clear	word99 word100 word101	1495285777	0	0	0	0	0	0	0
+100	Clear	word100 word101 word102	1495289377	0	0	0	0	0	0	0
+101	Clear	try1	1495549108	0	0	0	0	0	0	0
+\.
+
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('posts_id_seq', 101, true);
+
+
+--
+-- Data for Name: todos; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY todos (id, mood, text, ts, donets) FROM stdin;
+1	Clear	word1 word2 word3	1494932977	\N
+2	Clear	word2 word3 word4	1494936577	\N
+3	Clear	word3 word4 word5	1494940177	\N
+4	Clear	word4 word5 word6	1494943777	\N
+5	Clear	word5 word6 word7	1494947377	\N
+6	Clear	word6 word7 word8	1494950977	\N
+7	Clear	word7 word8 word9	1494954577	\N
+8	Clear	word8 word9 word10	1494958177	\N
+9	Clear	word9 word10 word11	1494961777	\N
+10	Clear	word10 word11 word12	1494965377	\N
+11	Clear	word11 word12 word13	1494968977	\N
+12	Clear	word12 word13 word14	1494972577	\N
+13	Clear	word13 word14 word15	1494976177	\N
+14	Clear	word14 word15 word16	1494979777	\N
+15	Clear	word15 word16 word17	1494983377	\N
+16	Clear	word16 word17 word18	1494986977	\N
+17	Clear	word17 word18 word19	1494990577	\N
+18	Clear	word18 word19 word20	1494994177	\N
+19	Clear	word19 word20 word21	1494997777	\N
+20	Clear	word20 word21 word22	1495001377	\N
+21	Clear	word21 word22 word23	1495004977	\N
+22	Clear	word22 word23 word24	1495008577	\N
+23	Clear	word23 word24 word25	1495012177	\N
+24	Clear	word24 word25 word26	1495015777	\N
+25	Clear	word25 word26 word27	1495019377	\N
+26	Clear	word26 word27 word28	1495022977	\N
+27	Clear	word27 word28 word29	1495026577	\N
+28	Clear	word28 word29 word30	1495030177	\N
+29	Clear	word29 word30 word31	1495033777	\N
+30	Clear	word30 word31 word32	1495037377	\N
+31	Clear	word31 word32 word33	1495040977	\N
+32	Clear	word32 word33 word34	1495044577	\N
+33	Clear	word33 word34 word35	1495048177	\N
+34	Clear	word34 word35 word36	1495051777	\N
+35	Clear	word35 word36 word37	1495055377	\N
+36	Clear	word36 word37 word38	1495058977	\N
+37	Clear	word37 word38 word39	1495062577	\N
+38	Clear	word38 word39 word40	1495066177	\N
+39	Clear	word39 word40 word41	1495069777	\N
+40	Clear	word40 word41 word42	1495073377	\N
+41	Clear	word41 word42 word43	1495076977	\N
+42	Clear	word42 word43 word44	1495080577	\N
+43	Clear	word43 word44 word45	1495084177	\N
+44	Clear	word44 word45 word46	1495087777	\N
+45	Clear	word45 word46 word47	1495091377	\N
+46	Clear	word46 word47 word48	1495094977	\N
+47	Clear	word47 word48 word49	1495098577	\N
+48	Clear	word48 word49 word50	1495102177	\N
+49	Clear	word49 word50 word51	1495105777	\N
+50	Clear	word50 word51 word52	1495109377	\N
+51	Clear	word51 word52 word53	1495112977	\N
+52	Clear	word52 word53 word54	1495116577	\N
+53	Clear	word53 word54 word55	1495120177	\N
+54	Clear	word54 word55 word56	1495123777	\N
+55	Clear	word55 word56 word57	1495127377	\N
+56	Clear	word56 word57 word58	1495130977	\N
+57	Clear	word57 word58 word59	1495134577	\N
+58	Clear	word58 word59 word60	1495138177	\N
+59	Clear	word59 word60 word61	1495141777	\N
+60	Clear	word60 word61 word62	1495145377	\N
+61	Clear	word61 word62 word63	1495148977	\N
+62	Clear	word62 word63 word64	1495152577	\N
+63	Clear	word63 word64 word65	1495156177	\N
+64	Clear	word64 word65 word66	1495159777	\N
+65	Clear	word65 word66 word67	1495163377	\N
+66	Clear	word66 word67 word68	1495166977	\N
+67	Clear	word67 word68 word69	1495170577	\N
+68	Clear	word68 word69 word70	1495174177	\N
+69	Clear	word69 word70 word71	1495177777	\N
+70	Clear	word70 word71 word72	1495181377	\N
+71	Clear	word71 word72 word73	1495184977	\N
+72	Clear	word72 word73 word74	1495188577	\N
+73	Clear	word73 word74 word75	1495192177	\N
+74	Clear	word74 word75 word76	1495195777	\N
+75	Clear	word75 word76 word77	1495199377	\N
+76	Clear	word76 word77 word78	1495202977	\N
+77	Clear	word77 word78 word79	1495206577	\N
+78	Clear	word78 word79 word80	1495210177	\N
+79	Clear	word79 word80 word81	1495213777	\N
+80	Clear	word80 word81 word82	1495217377	\N
+81	Clear	word81 word82 word83	1495220977	\N
+82	Clear	word82 word83 word84	1495224577	\N
+83	Clear	word83 word84 word85	1495228177	\N
+84	Clear	word84 word85 word86	1495231777	\N
+85	Clear	word85 word86 word87	1495235377	\N
+86	Clear	word86 word87 word88	1495238977	\N
+87	Clear	word87 word88 word89	1495242577	\N
+88	Clear	word88 word89 word90	1495246177	\N
+89	Clear	word89 word90 word91	1495249777	\N
+90	Clear	word90 word91 word92	1495253377	\N
+91	Clear	word91 word92 word93	1495256977	\N
+92	Clear	word92 word93 word94	1495260577	\N
+93	Clear	word93 word94 word95	1495264177	\N
+94	Clear	word94 word95 word96	1495267777	\N
+95	Clear	word95 word96 word97	1495271377	\N
+96	Clear	word96 word97 word98	1495274977	\N
+97	Clear	word97 word98 word99	1495278577	\N
+100	Clear	word100 word101 word102	1495289377	\N
+99	Clear	word99 word100 word101	1495285777	1495289425
+98	Clear	word98 word99 word100	1495282177	1495289428
+101	Clouds	todo1	1495549117	1495549119
+102	Windy	todo2	1495549128	\N
+\.
+
+
+--
+-- Name: todos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('todos_id_seq', 102, true);
+
+
+--
+-- Name: posts posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY posts
+    ADD CONSTRAINT posts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: todos todos_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY todos
+    ADD CONSTRAINT todos_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: posts_idx_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX posts_idx_text ON posts USING gin (text gin_trgm_ops);
+
+
+--
+-- Name: posts_idx_ts; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX posts_idx_ts ON posts USING btree (ts);
+
+
+--
+-- Name: todos_idx_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX todos_idx_text ON todos USING gin (text gin_trgm_ops);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: -
+--
+
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
